@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["Orbitron", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        neon: {
+          cyan: "hsl(var(--neon-cyan))",
+          blue: "hsl(var(--neon-blue))",
+          purple: "hsl(var(--neon-purple))",
+          pink: "hsl(var(--neon-pink))",
+          green: "hsl(var(--neon-green))",
+          orange: "hsl(var(--neon-orange))",
+          red: "hsl(var(--neon-red))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +78,40 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "glitch": {
+          "0%, 100%": { transform: "translate(0)" },
+          "20%": { transform: "translate(-2px, 2px)" },
+          "40%": { transform: "translate(-2px, -2px)" },
+          "60%": { transform: "translate(2px, 2px)" },
+          "80%": { transform: "translate(2px, -2px)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+        "shimmer": "shimmer 3s linear infinite",
+        "glitch": "glitch 0.3s ease-in-out",
       },
     },
   },
