@@ -53,11 +53,11 @@ export default {
         },
         neon: {
           cyan: "hsl(var(--neon-cyan))",
-          blue: "hsl(var(--neon-blue))",
-          purple: "hsl(var(--neon-purple))",
           pink: "hsl(var(--neon-pink))",
-          green: "hsl(var(--neon-green))",
+          purple: "hsl(var(--neon-purple))",
           orange: "hsl(var(--neon-orange))",
+          green: "hsl(var(--neon-green))",
+          blue: "hsl(var(--neon-blue))",
           red: "hsl(var(--neon-red))",
         },
         sidebar: {
@@ -104,6 +104,19 @@ export default {
           "60%": { transform: "translate(2px, 2px)" },
           "80%": { transform: "translate(2px, -2px)" },
         },
+        "scan": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(400%)" },
+        },
+        "flicker": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" },
+          "75%": { opacity: "0.9" },
+        },
+        "data-stream": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -112,6 +125,9 @@ export default {
         "float": "float 3s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
         "glitch": "glitch 0.3s ease-in-out",
+        "scan": "scan 2s linear infinite",
+        "flicker": "flicker 3s ease-in-out infinite",
+        "data-stream": "data-stream 2s linear infinite",
       },
     },
   },

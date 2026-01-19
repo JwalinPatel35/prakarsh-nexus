@@ -9,81 +9,86 @@
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 
-/* Prakarsh '26 - Sci-Fi Futuristic Design System */
+/* Prakarsh '26 - Cyberpunk Futuristic Design System */
 
 @layer base {
   :root {
-    /* Core dark theme - space black */
-    --background: 220 20% 4%;
-    --foreground: 200 100% 95%;
+    /* Core dark theme - deep space */
+    --background: 240 15% 3%;
+    --foreground: 0 0% 95%;
 
     /* Cards with glassmorphism */
-    --card: 220 25% 8%;
-    --card-foreground: 200 100% 95%;
+    --card: 240 20% 6%;
+    --card-foreground: 0 0% 95%;
 
     /* Popover */
-    --popover: 220 25% 6%;
-    --popover-foreground: 200 100% 95%;
+    --popover: 240 20% 5%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Primary - Electric Cyan */
-    --primary: 185 100% 50%;
-    --primary-foreground: 220 20% 4%;
+    /* Primary - Electric Cyan #00a9e0 */
+    --primary: 195 100% 44%;
+    --primary-foreground: 240 15% 3%;
 
-    /* Secondary - Deep Space Blue */
-    --secondary: 220 60% 15%;
-    --secondary-foreground: 200 100% 90%;
+    /* Secondary - Deep Purple #7027c3 */
+    --secondary: 270 65% 46%;
+    --secondary-foreground: 0 0% 95%;
 
     /* Muted */
-    --muted: 220 30% 12%;
-    --muted-foreground: 200 20% 60%;
+    --muted: 240 20% 10%;
+    --muted-foreground: 240 10% 55%;
 
-    /* Accent - Neon Pink/Magenta */
-    --accent: 320 100% 60%;
-    --accent-foreground: 220 20% 4%;
+    /* Accent - Neon Pink #ff3a92 */
+    --accent: 330 100% 61%;
+    --accent-foreground: 240 15% 3%;
 
     /* Destructive */
     --destructive: 0 85% 55%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 200 80% 30%;
-    --input: 220 30% 15%;
-    --ring: 185 100% 50%;
+    --border: 240 20% 18%;
+    --input: 240 20% 12%;
+    --ring: 195 100% 44%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Custom colors for events */
-    --neon-cyan: 185 100% 50%;
+    /* Main colors - Cyan, Pink, Purple */
+    --neon-cyan: 195 100% 44%;
+    --neon-pink: 330 100% 61%;
+    --neon-purple: 270 65% 46%;
+    
+    /* Accent colors - Orange, Green */
+    --neon-orange: 20 95% 55%;
+    --neon-green: 160 100% 53%;
+    
+    /* Legacy support */
     --neon-blue: 210 100% 60%;
-    --neon-purple: 270 100% 65%;
-    --neon-pink: 320 100% 60%;
-    --neon-green: 150 100% 50%;
-    --neon-orange: 25 100% 55%;
     --neon-red: 0 100% 55%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(185 100% 50%) 0%, hsl(210 100% 60%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(270 100% 65%) 0%, hsl(320 100% 60%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(220 20% 4%) 0%, hsl(220 40% 8%) 50%, hsl(220 20% 4%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(220 25% 10% / 0.8) 0%, hsl(220 30% 6% / 0.9) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 44%) 0%, hsl(330 100% 61%) 50%, hsl(270 65% 46%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(270 65% 46%) 0%, hsl(330 100% 61%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(240 15% 3%) 0%, hsl(240 20% 6%) 50%, hsl(240 15% 3%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(240 20% 8% / 0.9) 0%, hsl(240 20% 4% / 0.95) 100%);
 
     /* Glows */
-    --glow-primary: 0 0 30px hsl(185 100% 50% / 0.5), 0 0 60px hsl(185 100% 50% / 0.3);
-    --glow-accent: 0 0 30px hsl(320 100% 60% / 0.5), 0 0 60px hsl(320 100% 60% / 0.3);
+    --glow-primary: 0 0 30px hsl(195 100% 44% / 0.5), 0 0 60px hsl(195 100% 44% / 0.25);
+    --glow-accent: 0 0 30px hsl(330 100% 61% / 0.5), 0 0 60px hsl(330 100% 61% / 0.25);
+    --glow-secondary: 0 0 30px hsl(270 65% 46% / 0.5), 0 0 60px hsl(270 65% 46% / 0.25);
 
     /* Fonts */
     --font-display: "Orbitron", sans-serif;
     --font-body: "Inter", sans-serif;
 
     /* Sidebar */
-    --sidebar-background: 220 25% 6%;
-    --sidebar-foreground: 200 100% 90%;
-    --sidebar-primary: 185 100% 50%;
-    --sidebar-primary-foreground: 220 20% 4%;
-    --sidebar-accent: 220 30% 15%;
-    --sidebar-accent-foreground: 200 100% 90%;
-    --sidebar-border: 200 80% 25%;
-    --sidebar-ring: 185 100% 50%;
+    --sidebar-background: 240 20% 5%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 195 100% 44%;
+    --sidebar-primary-foreground: 240 15% 3%;
+    --sidebar-accent: 240 20% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 240 20% 15%;
+    --sidebar-ring: 195 100% 44%;
   }
 }
 
@@ -100,9 +105,9 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
     background-image: 
-      radial-gradient(ellipse at 50% 0%, hsl(185 100% 50% / 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 0% 50%, hsl(270 100% 65% / 0.05) 0%, transparent 50%),
-      radial-gradient(ellipse at 100% 50%, hsl(320 100% 60% / 0.05) 0%, transparent 50%);
+      radial-gradient(ellipse at 50% 0%, hsl(195 100% 44% / 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 50%, hsl(270 65% 46% / 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 50%, hsl(330 100% 61% / 0.04) 0%, transparent 50%);
     background-attachment: fixed;
   }
 
@@ -130,6 +135,10 @@
     box-shadow: var(--glow-accent);
   }
 
+  .glow-secondary {
+    box-shadow: var(--glow-secondary);
+  }
+
   .glass-card {
     @apply bg-card/80 backdrop-blur-xl border border-border/50;
     background-image: var(--gradient-card);
@@ -137,9 +146,13 @@
 
   .grid-overlay {
     background-image: 
-      linear-gradient(hsl(185 100% 50% / 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(185 100% 50% / 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+      linear-gradient(hsl(195 100% 44% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(195 100% 44% / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hex-grid {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2300a9e0' fill-opacity='0.03'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   .scan-line {
@@ -154,7 +167,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(185 100% 50% / 0.5), transparent);
+    background: linear-gradient(90deg, transparent, hsl(195 100% 44% / 0.6), transparent);
     animation: scan 3s linear infinite;
   }
 
@@ -177,6 +190,74 @@
     mask-composite: exclude;
     -webkit-mask-composite: xor;
   }
+
+  .cyber-button {
+    position: relative;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .cyber-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .cyber-button:hover::before {
+    opacity: 0.1;
+  }
+
+  .corner-decoration {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: hsl(var(--primary));
+  }
+
+  .corner-tl {
+    top: 0;
+    left: 0;
+    border-top: 2px solid;
+    border-left: 2px solid;
+  }
+
+  .corner-tr {
+    top: 0;
+    right: 0;
+    border-top: 2px solid;
+    border-right: 2px solid;
+  }
+
+  .corner-bl {
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+  }
+
+  .corner-br {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+
+  .data-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  }
+
+  .pulse-dot {
+    @apply w-2 h-2 rounded-full bg-primary;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
 }
 
 @layer utilities {
@@ -186,5 +267,9 @@
 
   .font-body {
     font-family: var(--font-body);
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }
