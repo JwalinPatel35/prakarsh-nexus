@@ -7,7 +7,14 @@ interface Particle {
   vy: number;
   size: number;
   opacity: number;
+  color: string;
 }
+
+const colors = [
+  "195, 100%, 44%", // cyan
+  "330, 100%, 61%", // pink
+  "270, 65%, 46%",  // purple
+];
 
 const ParticleField = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,14 +37,15 @@ const ParticleField = () => {
     window.addEventListener("resize", resizeCanvas);
 
     // Initialize particles
-    const particleCount = 50;
+    const particleCount = 60;
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
       size: Math.random() * 2 + 1,
       opacity: Math.random() * 0.5 + 0.2,
+      color: colors[Math.floor(Math.random() * colors.length)],
     }));
 
     const animate = () => {
@@ -56,7 +64,7 @@ const ParticleField = () => {
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(185, 100%, 50%, ${particle.opacity})`;
+        ctx.fillStyle = `hsla(${particle.color}, ${particle.opacity})`;
         ctx.fill();
       });
 
@@ -67,11 +75,11 @@ const ParticleField = () => {
           const dy = p1.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          if (distance < 120) {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `hsla(185, 100%, 50%, ${0.1 * (1 - distance / 150)})`;
+            ctx.strokeStyle = `hsla(195, 100%, 44%, ${0.08 * (1 - distance / 120)})`;
             ctx.stroke();
           }
         });
@@ -94,7 +102,7 @@ const ParticleField = () => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.5 }}
     />
   );
 };

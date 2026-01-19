@@ -8,12 +8,12 @@ interface EventCardProps {
 }
 
 const neonColors = {
-  cyan: { border: "hsl(185, 100%, 50%)", glow: "hsl(185, 100%, 50%, 0.4)" },
+  cyan: { border: "hsl(195, 100%, 44%)", glow: "hsl(195, 100%, 44%, 0.4)" },
   blue: { border: "hsl(210, 100%, 60%)", glow: "hsl(210, 100%, 60%, 0.4)" },
-  purple: { border: "hsl(270, 100%, 65%)", glow: "hsl(270, 100%, 65%, 0.4)" },
-  pink: { border: "hsl(320, 100%, 60%)", glow: "hsl(320, 100%, 60%, 0.4)" },
-  green: { border: "hsl(150, 100%, 50%)", glow: "hsl(150, 100%, 50%, 0.4)" },
-  orange: { border: "hsl(25, 100%, 55%)", glow: "hsl(25, 100%, 55%, 0.4)" },
+  purple: { border: "hsl(270, 65%, 46%)", glow: "hsl(270, 65%, 46%, 0.4)" },
+  pink: { border: "hsl(330, 100%, 61%)", glow: "hsl(330, 100%, 61%, 0.4)" },
+  green: { border: "hsl(160, 100%, 53%)", glow: "hsl(160, 100%, 53%, 0.4)" },
+  orange: { border: "hsl(20, 95%, 55%)", glow: "hsl(20, 95%, 55%, 0.4)" },
   red: { border: "hsl(0, 100%, 55%)", glow: "hsl(0, 100%, 55%, 0.4)" },
 };
 
@@ -35,7 +35,7 @@ const EventCard = ({ event, index }: EventCardProps) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <Link to={`/event/${event.id}`}>
         <motion.div
@@ -97,7 +97,7 @@ const EventCard = ({ event, index }: EventCardProps) => {
               className="absolute -top-px left-1/2 transform -translate-x-1/2 px-4 py-1 text-xs font-display font-bold tracking-wider"
               style={{
                 backgroundColor: colors.border,
-                color: "hsl(0, 0%, 5%)",
+                color: "hsl(240, 15%, 3%)",
                 clipPath: "polygon(10% 0, 90% 0, 100% 100%, 0 100%)",
               }}
             >
@@ -123,7 +123,7 @@ const EventCard = ({ event, index }: EventCardProps) => {
             {/* Scan line effect */}
             <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
               <div 
-                className="absolute w-full h-[2px] animate-[scan_2s_linear_infinite]"
+                className="absolute w-full h-[2px] animate-scan"
                 style={{ backgroundColor: colors.border }}
               />
             </div>
@@ -132,7 +132,7 @@ const EventCard = ({ event, index }: EventCardProps) => {
             <div className="relative z-10 pt-4">
               {/* Event name */}
               <h3 
-                className={`font-display text-xl font-bold mb-3 uppercase tracking-wider ${neonTextClasses[event.neonColor]} group-hover:animate-pulse`}
+                className={`font-display text-xl font-bold mb-3 uppercase tracking-wider ${neonTextClasses[event.neonColor]} group-hover:animate-flicker`}
               >
                 {event.name}
               </h3>
@@ -154,18 +154,12 @@ const EventCard = ({ event, index }: EventCardProps) => {
                 {event.tagline}
               </p>
 
-              {/* Scanning indicator */}
+              {/* Status indicator */}
               <div className="flex items-center gap-2 mb-4">
                 <div 
-                  className="w-1 h-1 rounded-full animate-pulse"
+                  className="w-1.5 h-1.5 rounded-full animate-pulse"
                   style={{ backgroundColor: colors.border }}
                 />
-                <span 
-                  className="text-xs font-display tracking-widest uppercase"
-                  style={{ color: colors.border }}
-                >
-                  SCANNING
-                </span>
                 <div className="flex gap-[2px]">
                   {[...Array(5)].map((_, i) => (
                     <div
@@ -205,7 +199,7 @@ const EventCard = ({ event, index }: EventCardProps) => {
                     className="w-4 h-4 border-2 rotate-45"
                     style={{ borderColor: colors.border }}
                   />
-                  <span className="text-xs text-foreground/50 font-display">
+                  <span className="text-xs text-foreground/50 font-display tracking-widest">
                     PRAKARSH.26
                   </span>
                 </div>
