@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import EventCard from "./EventCard";
 import EventIdCard from "./EventIdCard";
+import EventPosterCard from "./EventPosterCard";
 import { events } from "@/data/events";
 
 const EventsSection = () => {
@@ -58,10 +59,12 @@ const EventsSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative">
           {events.map((event, index) => (
-            index % 2 === 0 ? (
+            index % 3 === 0 ? (
               <EventCard key={event.id} event={event} index={index} />
-            ) : (
+            ) : index % 3 === 1 ? (
               <EventIdCard key={event.id} event={event} index={index} />
+            ) : (
+              <EventPosterCard key={event.id} event={event} index={index} />
             )
           ))}
         </div>
