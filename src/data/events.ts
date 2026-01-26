@@ -1,3 +1,5 @@
+export type EventCategory = "technical" | "non-technical" | "workshop" | "esports";
+
 export interface Event {
   id: string;
   name: string;
@@ -8,7 +10,31 @@ export interface Event {
   colors: string;
   neonColor: "cyan" | "blue" | "purple" | "pink" | "green" | "orange" | "red";
   icon: string;
+  category: EventCategory;
 }
+
+export const categoryInfo: Record<EventCategory, { label: string; description: string; neonColor: Event["neonColor"] }> = {
+  technical: {
+    label: "Technical Events",
+    description: "Dive into coding challenges, hackathons, and tech-driven competitions that push your skills to the limit.",
+    neonColor: "cyan",
+  },
+  "non-technical": {
+    label: "Non-Technical Events",
+    description: "Showcase your creativity, strategic thinking, and presentation skills in these engaging challenges.",
+    neonColor: "pink",
+  },
+  workshop: {
+    label: "Workshops",
+    description: "Hands-on learning experiences led by industry experts. Build, learn, and create something real.",
+    neonColor: "purple",
+  },
+  esports: {
+    label: "Esports",
+    description: "Compete in high-energy gaming tournaments and immersive virtual reality experiences.",
+    neonColor: "green",
+  },
+};
 
 export const events: Event[] = [
   {
@@ -29,7 +55,8 @@ export const events: Event[] = [
     keywords: ["Decide", "Lock", "Survive", "Endure"],
     colors: "dark urban tones (charcoal, steel grey) with red/orange alert accent",
     neonColor: "orange",
-    icon: "🏙️"
+    icon: "🏙️",
+    category: "technical"
   },
   {
     id: "designx",
@@ -50,7 +77,8 @@ export const events: Event[] = [
     keywords: ["Analyze", "Create", "Pitch", "Win"],
     colors: "modern neutrals with bold accent colors",
     neonColor: "pink",
-    icon: "🎨"
+    icon: "🎨",
+    category: "technical"
   },
   {
     id: "evolution-of-tech",
@@ -71,7 +99,8 @@ export const events: Event[] = [
     keywords: ["Think", "Explain", "Pitch", "Perform"],
     colors: "vibrant, playful tech palette (electric blue, neon green, yellow accents)",
     neonColor: "blue",
-    icon: "⚡"
+    icon: "⚡",
+    category: "non-technical"
   },
   {
     id: "techtrash",
@@ -91,7 +120,8 @@ export const events: Event[] = [
     keywords: ["Recycle", "Innovate", "Sustain", "Create"],
     colors: "eco greens, earthy tones with tech accents",
     neonColor: "green",
-    icon: "♻️"
+    icon: "♻️",
+    category: "non-technical"
   },
   {
     id: "data-vault",
@@ -111,7 +141,8 @@ export const events: Event[] = [
     keywords: ["Clean", "Decode", "Analyze", "Predict"],
     colors: "dark tech theme (navy/black) with neon accents",
     neonColor: "cyan",
-    icon: "🔐"
+    icon: "🔐",
+    category: "technical"
   },
   {
     id: "cryptocourtroom",
@@ -131,7 +162,8 @@ export const events: Event[] = [
     keywords: ["Debate", "Decide", "Defend", "Decode"],
     colors: "professional yet fun — dark blue, gold accents",
     neonColor: "purple",
-    icon: "⚖️"
+    icon: "⚖️",
+    category: "non-technical"
   },
   {
     id: "stealscape",
@@ -151,7 +183,8 @@ export const events: Event[] = [
     keywords: ["Think", "Steal", "Escape", "Win"],
     colors: "neon highlights on dark background",
     neonColor: "red",
-    icon: "🎯"
+    icon: "🎯",
+    category: "technical"
   },
   {
     id: "ghostbusters",
@@ -171,7 +204,8 @@ export const events: Event[] = [
     keywords: ["Track", "Hack", "Hunt", "Capture"],
     colors: "dark cyber with green/blue signal pulses",
     neonColor: "green",
-    icon: "👻"
+    icon: "👻",
+    category: "technical"
   },
   {
     id: "feud-exe",
@@ -191,7 +225,8 @@ export const events: Event[] = [
     keywords: ["Survey", "Battle", "Eliminate", "Win"],
     colors: "glitch aesthetic with neon accents",
     neonColor: "pink",
-    icon: "🎮"
+    icon: "🎮",
+    category: "esports"
   },
   {
     id: "protocol-0",
@@ -211,7 +246,8 @@ export const events: Event[] = [
     keywords: ["Choose", "Survive", "Think", "Escape"],
     colors: "dark minimal thriller with glitch effects",
     neonColor: "red",
-    icon: "🔀"
+    icon: "🔀",
+    category: "technical"
   },
   {
     id: "hydrothrust",
@@ -231,7 +267,8 @@ export const events: Event[] = [
     keywords: ["Learn", "Build", "Launch", "Compete"],
     colors: "water blue with launch orange accents",
     neonColor: "blue",
-    icon: "🚀"
+    icon: "🚀",
+    category: "workshop"
   },
   {
     id: "ctf",
@@ -251,7 +288,8 @@ export const events: Event[] = [
     keywords: ["Hack", "Capture", "Solve", "Win"],
     colors: "hacker green on dark terminal background",
     neonColor: "green",
-    icon: "🚩"
+    icon: "🚩",
+    category: "technical"
   },
   {
     id: "p2p",
@@ -271,7 +309,8 @@ export const events: Event[] = [
     keywords: ["Prompt", "Build", "Ship", "Pitch"],
     colors: "AI purple with clean futuristic tones",
     neonColor: "purple",
-    icon: "🤖"
+    icon: "🤖",
+    category: "technical"
   },
   {
     id: "dreamflow",
@@ -291,7 +330,8 @@ export const events: Event[] = [
     keywords: ["Dream", "Build", "Ship", "Deploy"],
     colors: "flutter blue with modern UI accents",
     neonColor: "blue",
-    icon: "💭"
+    icon: "💭",
+    category: "workshop"
   },
   {
     id: "tradex",
@@ -311,7 +351,8 @@ export const events: Event[] = [
     keywords: ["Trade", "Invest", "Strategize", "Win"],
     colors: "finance green with stock market aesthetics",
     neonColor: "green",
-    icon: "📈"
+    icon: "📈",
+    category: "non-technical"
   },
   {
     id: "ar-vr-experience",
@@ -331,10 +372,15 @@ export const events: Event[] = [
     keywords: ["Immerse", "Play", "Experience", "Explore"],
     colors: "virtual reality purple with neon grid aesthetics",
     neonColor: "purple",
-    icon: "🥽"
+    icon: "🥽",
+    category: "esports"
   }
 ];
 
 export const getEventById = (id: string): Event | undefined => {
   return events.find(event => event.id === id);
+};
+
+export const getEventsByCategory = (category: EventCategory): Event[] => {
+  return events.filter(event => event.category === category);
 };
