@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import EventCard from "./EventCard";
 import EventIdCard from "./EventIdCard";
-import EventPosterCard from "./EventPosterCard";
 import { events, categoryInfo, EventCategory } from "@/data/events";
 
 const categories: { key: EventCategory; color: string }[] = [
@@ -104,15 +102,9 @@ const EventsSection = () => {
         <div className="absolute inset-0 grid-overlay opacity-10 pointer-events-none" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative">
-          {events.map((event, index) =>
-            index % 3 === 0 ? (
-              <EventCard key={event.id} event={event} index={index} />
-            ) : index % 3 === 1 ? (
-              <EventIdCard key={event.id} event={event} index={index} />
-            ) : (
-              <EventPosterCard key={event.id} event={event} index={index} />
-            )
-          )}
+          {events.map((event, index) => (
+            <EventIdCard key={event.id} event={event} index={index} />
+          ))}
         </div>
       </div>
 

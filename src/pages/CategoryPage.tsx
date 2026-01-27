@@ -5,9 +5,7 @@ import { getEventsByCategory, categoryInfo, EventCategory } from "@/data/events"
 import ParticleField from "@/components/ParticleField";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import EventCard from "@/components/EventCard";
 import EventIdCard from "@/components/EventIdCard";
-import EventPosterCard from "@/components/EventPosterCard";
 
 const neonColorVars: Record<string, string> = {
   cyan: "195 100% 44%",
@@ -197,15 +195,9 @@ const CategoryPage = () => {
           <div className="absolute inset-0 grid-overlay opacity-10 pointer-events-none" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative">
-            {events.map((event, index) =>
-              index % 3 === 0 ? (
-                <EventCard key={event.id} event={event} index={index} />
-              ) : index % 3 === 1 ? (
-                <EventIdCard key={event.id} event={event} index={index} />
-              ) : (
-                <EventPosterCard key={event.id} event={event} index={index} />
-              )
-            )}
+            {events.map((event, index) => (
+              <EventIdCard key={event.id} event={event} index={index} />
+            ))}
           </div>
 
           {events.length === 0 && (
