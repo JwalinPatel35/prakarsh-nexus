@@ -17,7 +17,7 @@ export const categoryInfo: Record<EventCategory, { label: string; description: s
   technical: {
     label: "Technical Events",
     description: "Dive into coding challenges, hackathons, and tech-driven competitions that push your skills to the limit.",
-    neonColor: "cyan",
+    neonColor: "blue",
   },
   "non-technical": {
     label: "Non-Technical Events",

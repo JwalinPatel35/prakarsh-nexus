@@ -8,13 +8,13 @@ import Footer from "@/components/Footer";
 import EventIdCard from "@/components/EventIdCard";
 
 const neonColorVars: Record<string, string> = {
-  cyan: "195 100% 44%",
-  blue: "210 100% 60%",
-  purple: "270 65% 46%",
-  pink: "330 100% 61%",
+  cyan: "240 89% 73%",
+  blue: "240 100% 89%",
+  purple: "264 35% 25%",
+  pink: "316 100% 70%",
   green: "160 100% 53%",
-  orange: "20 95% 55%",
-  red: "0 100% 55%",
+  orange: "16 69% 79%",
+  red: "316 100% 70%",
 };
 
 const CategoryPage = () => {
