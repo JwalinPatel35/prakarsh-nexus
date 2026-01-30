@@ -108,7 +108,7 @@ const HeroSection = () => {
               className="flex flex-wrap justify-center gap-3 mb-10"
             >
               {[
-                { label: "Technical", href: "/category/technical", color: "cyan" },
+                { label: "Technical", href: "/category/technical", color: "blue" },
                 {
                   label: "Non-Technical",
                   href: "/category/non-technical",
