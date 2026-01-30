@@ -11,9 +11,9 @@ interface Particle {
 }
 
 const colors = [
-  "240, 91%, 73%",  // lavender #7B7BF8
-  "318, 100%, 70%", // pink #FF67D5
-  "240, 100%, 89%", // light lavender #C9C9FF
+  "195, 100%, 44%", // cyan
+  "330, 100%, 61%", // pink
+  "270, 65%, 46%",  // purple
 ];
 
 const ParticleField = () => {
@@ -79,7 +79,7 @@ const ParticleField = () => {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `hsla(240, 91%, 73%, ${0.08 * (1 - distance / 120)})`;
+            ctx.strokeStyle = `hsla(195, 100%, 44%, ${0.08 * (1 - distance / 120)})`;
             ctx.stroke();
           }
         });
