@@ -8,7 +8,7 @@ export interface Event {
   posterElements: string[];
   keywords: string[];
   colors: string;
-  neonColor: "cyan" | "blue" | "purple" | "pink" | "green" | "orange" | "red";
+  neonColor: "lavender" | "pink" | "peach" | "purple";
   icon: string;
   category: EventCategory;
 }
@@ -17,7 +17,7 @@ export const categoryInfo: Record<EventCategory, { label: string; description: s
   technical: {
     label: "Technical Events",
     description: "Dive into coding challenges, hackathons, and tech-driven competitions that push your skills to the limit.",
-    neonColor: "cyan",
+    neonColor: "lavender",
   },
   "non-technical": {
     label: "Non-Technical Events",
@@ -32,7 +32,7 @@ export const categoryInfo: Record<EventCategory, { label: string; description: s
   esports: {
     label: "Esports",
     description: "Compete in high-energy gaming tournaments and immersive virtual reality experiences.",
-    neonColor: "green",
+    neonColor: "peach",
   },
 };
 
@@ -53,8 +53,8 @@ export const events: Event[] = [
       "Tech upgrade paths with restriction symbols"
     ],
     keywords: ["Decide", "Lock", "Survive", "Endure"],
-    colors: "dark urban tones (charcoal, steel grey) with red/orange alert accent",
-    neonColor: "orange",
+    colors: "dark urban tones (charcoal, steel grey) with peach accent",
+    neonColor: "peach",
     icon: "🏙️",
     category: "technical"
   },
@@ -97,8 +97,8 @@ export const events: Event[] = [
       "Silly/futuristic gadgets"
     ],
     keywords: ["Think", "Explain", "Pitch", "Perform"],
-    colors: "vibrant, playful tech palette (electric blue, neon green, yellow accents)",
-    neonColor: "blue",
+    colors: "vibrant, playful tech palette (lavender, pink accents)",
+    neonColor: "lavender",
     icon: "⚡",
     category: "non-technical"
   },
@@ -118,8 +118,8 @@ export const events: Event[] = [
       "Icons for sustainability, innovation, and teamwork"
     ],
     keywords: ["Recycle", "Innovate", "Sustain", "Create"],
-    colors: "eco greens, earthy tones with tech accents",
-    neonColor: "green",
+    colors: "peach tones with tech accents",
+    neonColor: "peach",
     icon: "♻️",
     category: "non-technical"
   },
@@ -139,8 +139,8 @@ export const events: Event[] = [
       "Timeline or data flow visuals showing tech evolution"
     ],
     keywords: ["Clean", "Decode", "Analyze", "Predict"],
-    colors: "dark tech theme (navy/black) with neon accents",
-    neonColor: "cyan",
+    colors: "dark tech theme (navy/black) with lavender accents",
+    neonColor: "lavender",
     icon: "🔐",
     category: "technical"
   },
@@ -181,8 +181,8 @@ export const events: Event[] = [
       "Countdown timers or digital lock graphics for urgency"
     ],
     keywords: ["Think", "Steal", "Escape", "Win"],
-    colors: "neon highlights on dark background",
-    neonColor: "red",
+    colors: "pink highlights on dark background",
+    neonColor: "pink",
     icon: "🎯",
     category: "technical"
   },
@@ -202,8 +202,8 @@ export const events: Event[] = [
       "Cybersecurity · Wireless Hacking · Signal Tracking"
     ],
     keywords: ["Track", "Hack", "Hunt", "Capture"],
-    colors: "dark cyber with green/blue signal pulses",
-    neonColor: "green",
+    colors: "dark cyber with lavender/pink signal pulses",
+    neonColor: "lavender",
     icon: "👻",
     category: "technical"
   },
@@ -245,7 +245,7 @@ export const events: Event[] = [
     ],
     keywords: ["Choose", "Survive", "Think", "Escape"],
     colors: "dark minimal thriller with glitch effects",
-    neonColor: "red",
+    neonColor: "purple",
     icon: "🔀",
     category: "technical"
   },
@@ -265,8 +265,8 @@ export const events: Event[] = [
       "Outdoor, high-energy, STEM workshop vibe"
     ],
     keywords: ["Learn", "Build", "Launch", "Compete"],
-    colors: "water blue with launch orange accents",
-    neonColor: "blue",
+    colors: "lavender with peach accents",
+    neonColor: "lavender",
     icon: "🚀",
     category: "workshop"
   },
@@ -286,8 +286,8 @@ export const events: Event[] = [
       "Competitive vibe: leaderboards, timers, challenge grids"
     ],
     keywords: ["Hack", "Capture", "Solve", "Win"],
-    colors: "hacker green on dark terminal background",
-    neonColor: "green",
+    colors: "lavender on dark terminal background",
+    neonColor: "lavender",
     icon: "🚩",
     category: "technical"
   },
@@ -328,8 +328,8 @@ export const events: Event[] = [
       "AI-first · No Install · Production Ready"
     ],
     keywords: ["Dream", "Build", "Ship", "Deploy"],
-    colors: "flutter blue with modern UI accents",
-    neonColor: "blue",
+    colors: "lavender with modern UI accents",
+    neonColor: "lavender",
     icon: "💭",
     category: "workshop"
   },
@@ -349,8 +349,8 @@ export const events: Event[] = [
       "Portfolio and net-worth highlights"
     ],
     keywords: ["Trade", "Invest", "Strategize", "Win"],
-    colors: "finance green with stock market aesthetics",
-    neonColor: "green",
+    colors: "peach with stock market aesthetics",
+    neonColor: "peach",
     icon: "📈",
     category: "non-technical"
   },

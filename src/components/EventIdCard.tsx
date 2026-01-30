@@ -10,23 +10,17 @@ interface EventIdCardProps {
 }
 
 const neonVars = {
-  cyan: "--neon-cyan",
-  blue: "--neon-blue",
+  lavender: "--neon-cyan",
   purple: "--neon-purple",
   pink: "--neon-pink",
-  green: "--neon-green",
-  orange: "--neon-orange",
-  red: "--neon-red",
+  peach: "--neon-orange",
 } as const;
 
 const neonTextClasses = {
-  cyan: "text-neon-cyan",
-  blue: "text-neon-blue",
+  lavender: "text-neon-cyan",
   purple: "text-neon-purple",
   pink: "text-neon-pink",
-  green: "text-neon-green",
-  orange: "text-neon-orange",
-  red: "text-neon-red",
+  peach: "text-neon-orange",
 };
 
 function ChunkyQr() {
@@ -200,7 +194,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                     className="absolute inset-0 opacity-80"
                     style={{
                       backgroundImage:
-                        "radial-gradient(circle at 25% 20%, hsl(var(--event-accent) / 0.28), transparent 60%), radial-gradient(circle at 75% 80%, hsl(var(--neon-green) / 0.10), transparent 60%)",
+                        "radial-gradient(circle at 25% 20%, hsl(var(--event-accent) / 0.28), transparent 60%), radial-gradient(circle at 75% 80%, hsl(var(--neon-pink) / 0.10), transparent 60%)",
                     }}
                   />
                   {/* diagonal highlight */}
@@ -228,7 +222,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                       </div>
                       <div className="mt-2 text-[11px] text-foreground/60">
                         <span className="font-display tracking-[0.22em]">MISSION</span>{" "}
-                        <span style={{ color: "hsl(var(--neon-green) / 0.9)" }}>#{event.id}</span>
+                        <span style={{ color: "hsl(var(--neon-pink) / 0.9)" }}>#{event.id}</span>
                       </div>
                     </div>
 
