@@ -71,7 +71,7 @@ const Navbar = () => {
                 <span className="font-display font-bold text-lg text-gradient-primary">
                   PRAKARSH
                 </span>
-                <span className="text-xs text-neon-green font-display tracking-widest -mt-1">
+                <span className="text-xs text-accent font-display tracking-widest -mt-1">
                   '26
                 </span>
               </div>
