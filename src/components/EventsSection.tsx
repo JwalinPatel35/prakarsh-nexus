@@ -4,7 +4,7 @@ import EventIdCard from "./EventIdCard";
 import { events, categoryInfo, EventCategory } from "@/data/events";
 
 const categories: { key: EventCategory; color: string }[] = [
-  { key: "technical", color: "blue" },
+  { key: "technical", color: "cyan" },
   { key: "non-technical", color: "pink" },
   { key: "workshop", color: "purple" },
   { key: "esports", color: "green" },
