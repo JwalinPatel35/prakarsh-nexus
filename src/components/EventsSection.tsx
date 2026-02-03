@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import EventIdCard from "./EventIdCard";
+import TerminalCard from "./cards/TerminalCard";
+import DataCard from "./cards/DataCard";
+import BadgeCard from "./cards/BadgeCard";
 import { events, categoryInfo, EventCategory } from "@/data/events";
 
 const categories: { key: EventCategory; color: string }[] = [
@@ -9,6 +12,9 @@ const categories: { key: EventCategory; color: string }[] = [
   { key: "workshop", color: "purple" },
   { key: "esports", color: "green" },
 ];
+
+// Card components to rotate through
+const cardVariants = [EventIdCard, TerminalCard, DataCard, BadgeCard];
 
 const EventsSection = () => {
   return (
@@ -102,9 +108,10 @@ const EventsSection = () => {
         <div className="absolute inset-0 grid-overlay opacity-10 pointer-events-none" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative">
-          {events.map((event, index) => (
-            <EventIdCard key={event.id} event={event} index={index} />
-          ))}
+          {events.map((event, index) => {
+            const CardComponent = cardVariants[index % cardVariants.length];
+            return <CardComponent key={event.id} event={event} index={index} />;
+          })}
         </div>
       </div>
 
