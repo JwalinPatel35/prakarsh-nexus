@@ -4,6 +4,7 @@ import EventIdCard from "./EventIdCard";
 import TerminalCard from "./cards/TerminalCard";
 import DataCard from "./cards/DataCard";
 import BadgeCard from "./cards/BadgeCard";
+import CassetteCard from "./cards/CassetteCard";
 import { events, categoryInfo, EventCategory } from "@/data/events";
 
 const categories: { key: EventCategory; color: string }[] = [
@@ -14,7 +15,7 @@ const categories: { key: EventCategory; color: string }[] = [
 ];
 
 // Card components to rotate through
-const cardVariants = [EventIdCard, TerminalCard, DataCard, BadgeCard];
+const cardVariants = [EventIdCard, TerminalCard, DataCard, BadgeCard, CassetteCard];
 
 const EventsSection = () => {
   return (
