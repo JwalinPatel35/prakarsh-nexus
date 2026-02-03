@@ -9,42 +9,32 @@ interface EventIdCardProps {
   index: number;
 }
 
-const neonVars = {
-  lavender: "--neon-cyan",
-  purple: "--neon-purple",
-  pink: "--neon-pink",
-  peach: "--neon-orange",
+// Flat color palette - no gradients
+const COLORS = {
+  white: "#FFFFFF",
+  peach: "#F1B5A2",
+  accent: "#3C2A56",
 } as const;
 
-const neonTextClasses = {
-  lavender: "text-neon-cyan",
-  purple: "text-neon-purple",
-  pink: "text-neon-pink",
-  peach: "text-neon-orange",
-};
-
 function ChunkyQr() {
-  // QR-ish decorative blocks (pure CSS, no images)
   return (
     <div
       aria-hidden
       className="grid h-16 w-16 grid-cols-7 gap-[2px] p-[2px]"
       style={{
         clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
-        border: "1px solid hsl(var(--event-accent) / 0.55)",
-        background: "hsl(var(--background) / 0.15)",
+        border: `1px solid ${COLORS.peach}`,
+        background: COLORS.accent,
       }}
     >
       {Array.from({ length: 49 }).map((_, i) => (
         <div
-          // deterministic pattern
           key={i}
-          className=""
           style={{
             background:
               (i % 7 === 0 || i % 7 === 6 || (Math.floor(i / 7) % 7 === 0) || (Math.floor(i / 7) % 7 === 6) || (i % 11 === 0))
-                ? "hsl(var(--event-accent) / 0.9)"
-                : "hsl(var(--event-accent) / 0.08)",
+                ? COLORS.peach
+                : COLORS.accent,
           }}
         />
       ))}
@@ -53,8 +43,6 @@ function ChunkyQr() {
 }
 
 export default function EventIdCard({ event, index }: EventIdCardProps) {
-  const accentVar = neonVars[event.neonColor];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -63,22 +51,19 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
       transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <Link to={`/event/${event.id}`} className="block h-full">
-        <InteractiveTilt accentVar={accentVar} className="group h-full">
+        <InteractiveTilt accentVar="--neon-orange" className="group h-full">
           <motion.div
             whileTap={{ scale: 0.985 }}
             className="relative h-full"
-            style={{
-              ["--event-accent" as never]: `var(${accentVar})`,
-            }}
           >
-            {/* Transparent base: only frame + floating panels */}
+            {/* Card base */}
             <div
               className="relative h-full overflow-hidden"
               style={{
                 clipPath:
                   "polygon(30px 0, calc(100% - 22px) 0, 100% 22px, 100% calc(100% - 40px), calc(100% - 40px) 100%, 22px 100%, 0 calc(100% - 22px), 0 30px)",
-                boxShadow:
-                  "0 0 0 1px hsl(var(--event-accent) / 0.75), 0 26px 70px -42px hsl(var(--event-accent) / 0.60)",
+                boxShadow: `0 0 0 1px ${COLORS.peach}, 0 0 30px -10px ${COLORS.peach}40`,
+                background: COLORS.accent,
               }}
             >
               {/* Inner frame line */}
@@ -88,17 +73,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                 style={{
                   clipPath:
                     "polygon(22px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 28px), calc(100% - 28px) 100%, 16px 100%, 0 calc(100% - 16px), 0 22px)",
-                  boxShadow: "0 0 0 1px hsl(var(--event-accent) / 0.35)",
-                }}
-              />
-
-              {/* Ambient glow (keeps center transparent) */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(800px circle at 40% 25%, hsl(var(--event-accent) / 0.22), transparent 55%), radial-gradient(600px circle at 80% 90%, hsl(var(--secondary) / 0.12), transparent 60%)",
+                  boxShadow: `0 0 0 1px ${COLORS.peach}50`,
                 }}
               />
 
@@ -107,9 +82,8 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                 className="absolute left-0 top-1/2 -translate-y-1/2"
                 style={{
                   clipPath: "polygon(0 0, 100% 10px, 100% calc(100% - 10px), 0 100%)",
-                  border: "1px solid hsl(var(--event-accent) / 0.55)",
-                  background:
-                    "linear-gradient(180deg, hsl(var(--event-accent) / 0.10), hsl(var(--background) / 0.10))",
+                  border: `1px solid ${COLORS.peach}`,
+                  background: COLORS.accent,
                 }}
               >
                 <div className="px-3 py-10">
@@ -118,7 +92,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                     style={{
                       writingMode: "vertical-rl",
                       transform: "rotate(180deg)",
-                      color: "hsl(var(--event-accent) / 0.9)",
+                      color: COLORS.peach,
                     }}
                   >
                     {event.name}
@@ -131,15 +105,15 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                 <div
                   className="h-2 w-2 rounded-full"
                   style={{
-                    boxShadow: "0 0 0 1px hsl(var(--event-accent) / 0.55)",
-                    background: "hsl(var(--background) / 0.20)",
+                    boxShadow: `0 0 0 1px ${COLORS.peach}`,
+                    background: COLORS.accent,
                   }}
                 />
                 <div
                   className="h-2 w-2 rounded-full"
                   style={{
-                    boxShadow: "0 0 0 1px hsl(var(--event-accent) / 0.55)",
-                    background: "hsl(var(--background) / 0.20)",
+                    boxShadow: `0 0 0 1px ${COLORS.peach}`,
+                    background: COLORS.accent,
                   }}
                 />
               </div>
@@ -155,74 +129,58 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                       style={{
                         clipPath:
                           "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
-                        border: "1px solid hsl(var(--border))",
-                        background:
-                          "linear-gradient(135deg, hsl(var(--event-accent) / 0.12), hsl(var(--secondary) / 0.08))",
+                        border: `1px solid ${COLORS.peach}50`,
+                        background: COLORS.accent,
                       }}
                     />
                   </div>
 
                   <div className="text-right">
-                    <div className="text-[10px] font-display tracking-[0.3em] text-foreground/55">
+                    <div 
+                      className="text-[10px] font-display tracking-[0.3em]"
+                      style={{ color: `${COLORS.white}90` }}
+                    >
                       ID NUMBER
                     </div>
                     <div
                       className="mt-1 font-display text-xs font-black tracking-[0.22em]"
-                      style={{ color: "hsl(var(--event-accent) / 0.9)" }}
+                      style={{ color: COLORS.peach }}
                     >
                       PKR-{String(1000 + index * 7)}
                     </div>
                   </div>
                 </div>
 
-                {/* Portrait window (transparent base, floating glass panel) */}
+                {/* Portrait window */}
                 <div
                   className="relative overflow-hidden"
                   style={{
                     clipPath:
                       "polygon(22px 0, calc(100% - 22px) 0, 100% 22px, 100% calc(100% - 22px), calc(100% - 22px) 100%, 22px 100%, 0 calc(100% - 22px), 0 22px)",
-                    border: "1px solid hsl(var(--event-accent) / 0.45)",
-                    background:
-                      "linear-gradient(135deg, hsl(var(--card) / 0.10), hsl(var(--background) / 0.02))",
-                    boxShadow:
-                      "inset 0 0 0 1px hsl(var(--event-accent) / 0.10), 0 14px 40px -30px hsl(var(--event-accent) / 0.55)",
+                    border: `1px solid ${COLORS.peach}`,
+                    background: COLORS.accent,
+                    boxShadow: `inset 0 0 30px -15px ${COLORS.peach}30`,
                   }}
                 >
-                  <div className="absolute inset-0 hex-grid opacity-25 mix-blend-screen" />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-80"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle at 25% 20%, hsl(var(--event-accent) / 0.28), transparent 60%), radial-gradient(circle at 75% 80%, hsl(var(--neon-pink) / 0.10), transparent 60%)",
-                    }}
-                  />
-                  {/* diagonal highlight */}
-                  <div
-                    aria-hidden
-                    className="absolute -left-24 top-10 h-16 w-[140%] rotate-[-14deg]"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, transparent 0%, hsl(var(--event-accent) / 0.18) 30%, transparent 70%)",
-                    }}
-                  />
+                  <div className="absolute inset-0 hex-grid opacity-15" />
 
                   <div className="relative z-10 flex h-full min-h-[240px] items-end justify-between p-4">
                     <div>
-                      <div className="text-[10px] font-display tracking-[0.3em] text-foreground/55">
+                      <div 
+                        className="text-[10px] font-display tracking-[0.3em]"
+                        style={{ color: `${COLORS.white}90` }}
+                      >
                         NAME
                       </div>
                       <div
-                        className={
-                          "mt-1 font-display text-3xl font-black tracking-[0.18em] uppercase " +
-                          neonTextClasses[event.neonColor]
-                        }
+                        className="mt-1 font-display text-3xl font-black tracking-[0.18em] uppercase"
+                        style={{ color: COLORS.white }}
                       >
                         {event.name}
                       </div>
-                      <div className="mt-2 text-[11px] text-foreground/60">
+                      <div className="mt-2 text-[11px]" style={{ color: `${COLORS.white}99` }}>
                         <span className="font-display tracking-[0.22em]">MISSION</span>{" "}
-                        <span style={{ color: "hsl(var(--neon-pink) / 0.9)" }}>#{event.id}</span>
+                        <span style={{ color: COLORS.peach }}>#{event.id}</span>
                       </div>
                     </div>
 
@@ -233,8 +191,8 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                         style={{
                           clipPath:
                             "polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 18px 100%, 0 calc(100% - 18px), 0 18px)",
-                          border: "1px solid hsl(var(--event-accent) / 0.55)",
-                          background: "hsl(var(--event-accent) / 0.06)",
+                          border: `1px solid ${COLORS.peach}`,
+                          background: COLORS.accent,
                         }}
                       >
                         <div
@@ -242,7 +200,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                           style={{
                             clipPath:
                               "polygon(50% 0, 88% 12%, 100% 50%, 88% 88%, 50% 100%, 12% 88%, 0 50%, 12% 12%)",
-                            boxShadow: "0 0 0 2px hsl(var(--event-accent) / 0.55)",
+                            boxShadow: `0 0 0 2px ${COLORS.peach}`,
                           }}
                         />
                       </div>
@@ -256,14 +214,19 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                   style={{
                     clipPath:
                       "polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%, 0 20px)",
-                    border: "1px solid hsl(var(--event-accent) / 0.45)",
-                    background:
-                      "linear-gradient(90deg, hsl(var(--event-accent) / 0.10), hsl(var(--background) / 0.10))",
+                    border: `1px solid ${COLORS.peach}`,
+                    background: COLORS.accent,
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
-                    <span className="text-[10px] font-display tracking-[0.35em] text-foreground/55">
+                    <div 
+                      className="h-[2px] w-10" 
+                      style={{ background: COLORS.peach }}
+                    />
+                    <span 
+                      className="text-[10px] font-display tracking-[0.35em]"
+                      style={{ color: `${COLORS.white}90` }}
+                    >
                       PRAKARSH.26
                     </span>
                   </div>
@@ -274,7 +237,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                   >
                     <span
                       className="text-[10px] font-display tracking-[0.35em]"
-                      style={{ color: "hsl(var(--event-accent))" }}
+                      style={{ color: COLORS.peach }}
                     >
                       OPEN
                     </span>
@@ -284,7 +247,7 @@ export default function EventIdCard({ event, index }: EventIdCardProps) {
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      style={{ color: "hsl(var(--event-accent))" }}
+                      style={{ color: COLORS.peach }}
                     >
                       <path
                         d="M9 18l6-6-6-6"
