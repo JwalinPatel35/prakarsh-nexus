@@ -2,12 +2,12 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import EventsSection from "@/components/EventsSection";
 import Footer from "@/components/Footer";
-import MatrixRain from "@/components/MatrixRain";
+import GeometricPattern from "@/components/GeometricPattern";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen">
-      <MatrixRain />
+      <GeometricPattern />
       <Navbar />
       <main className="relative z-10">
         <HeroSection />
