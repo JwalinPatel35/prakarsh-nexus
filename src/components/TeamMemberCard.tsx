@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import InteractiveTilt from "@/components/InteractiveTilt";
 
 interface TeamMemberCardProps {
   member: {
@@ -16,58 +17,81 @@ const COLORS = {
   accent: "#3C2A56",
 } as const;
 
-function DnaStrip() {
+/* ── Topographic wave SVG background ── */
+function TopoPattern() {
   return (
-    <div
+    <svg
       aria-hidden
-      className="flex flex-col items-center gap-[3px] py-2"
+      className="absolute inset-0 w-full h-full opacity-[0.07]"
+      viewBox="0 0 200 200"
+      preserveAspectRatio="none"
     >
-      {Array.from({ length: 12 }).map((_, i) => (
-        <div
+      {Array.from({ length: 10 }).map((_, i) => (
+        <path
           key={i}
-          className="flex items-center gap-[2px]"
-        >
-          <div
-            className="h-[3px] rounded-full"
-            style={{
-              width: i % 3 === 0 ? 8 : i % 2 === 0 ? 5 : 3,
-              background: i % 4 === 0 ? COLORS.peach : `${COLORS.peach}50`,
-            }}
-          />
-          <div
-            className="h-[3px] rounded-full"
-            style={{
-              width: i % 3 === 1 ? 8 : i % 2 === 1 ? 5 : 3,
-              background: i % 3 === 0 ? COLORS.peach : `${COLORS.peach}40`,
-            }}
-          />
-        </div>
+          d={`M0 ${100 + i * 8} Q50 ${80 + i * 12},100 ${100 + i * 8} T200 ${100 + i * 8}`}
+          fill="none"
+          stroke={COLORS.peach}
+          strokeWidth="0.8"
+        />
       ))}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <path
+          key={`b-${i}`}
+          d={`M0 ${60 + i * 10} Q80 ${40 + i * 14},160 ${70 + i * 10} T200 ${60 + i * 10}`}
+          fill="none"
+          stroke={COLORS.peach}
+          strokeWidth="0.5"
+        />
+      ))}
+    </svg>
+  );
+}
+
+/* ── Barcode decoration ── */
+function Barcode({ value }: { value: string }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className="flex gap-[1px]">
+        {Array.from({ length: 24 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-5"
+            style={{
+              width: i % 3 === 0 ? "2px" : "1px",
+              background:
+                i % 5 === 0
+                  ? COLORS.accent
+                  : `${COLORS.accent}90`,
+            }}
+          />
+        ))}
+      </div>
+      <span
+        className="text-[7px] font-display tracking-[0.4em]"
+        style={{ color: `${COLORS.accent}70` }}
+      >
+        {value}
+      </span>
     </div>
   );
 }
 
-function CornerBracket({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
-  const isTop = position.startsWith("t");
-  const isLeft = position.endsWith("l");
-
+/* ── Lanyard clip at top ── */
+function LanyardClip() {
   return (
-    <div
-      className="absolute"
-      style={{
-        top: isTop ? 0 : "auto",
-        bottom: !isTop ? 0 : "auto",
-        left: isLeft ? 0 : "auto",
-        right: !isLeft ? 0 : "auto",
-      }}
-    >
+    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center">
+      {/* String */}
       <div
-        className="h-5 w-5"
+        className="w-[2px] h-4"
+        style={{ background: `${COLORS.peach}80` }}
+      />
+      {/* Metal ring */}
+      <div
+        className="w-5 h-3 rounded-full"
         style={{
-          borderTop: isTop ? `2px solid ${COLORS.peach}` : "none",
-          borderBottom: !isTop ? `2px solid ${COLORS.peach}` : "none",
-          borderLeft: isLeft ? `2px solid ${COLORS.peach}` : "none",
-          borderRight: !isLeft ? `2px solid ${COLORS.peach}` : "none",
+          border: `2px solid ${COLORS.peach}`,
+          background: `${COLORS.accent}`,
         }}
       />
     </div>
@@ -76,6 +100,8 @@ function CornerBracket({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
 
 export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
   const serialNum = `PRK-${String(index + 1).padStart(3, "0")}`;
+  const matricula = String(1000000 + index * 7919)
+    .slice(0, 7);
 
   return (
     <motion.div
@@ -83,206 +109,175 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="group"
+      className="pt-4" /* room for lanyard clip */
     >
-      <motion.div
-        whileHover={{ scale: 1.015 }}
-        whileTap={{ scale: 0.99 }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="relative h-full"
-      >
-        {/* Card shell */}
-        <div
-          className="relative h-full overflow-hidden"
-          style={{
-            clipPath:
-              "polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px))",
-            boxShadow: `0 0 0 1px ${COLORS.peach}, 0 0 40px -15px ${COLORS.peach}30`,
-            background: COLORS.accent,
-          }}
-        >
-          {/* Inner border echo */}
+      <InteractiveTilt accentVar="--neon-orange" className="group">
+        <div className="relative">
+          <LanyardClip />
+
+          {/* Card shell */}
           <div
-            aria-hidden
-            className="pointer-events-none absolute inset-[8px]"
+            className="relative overflow-hidden"
             style={{
-              clipPath:
-                "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
-              boxShadow: `0 0 0 1px ${COLORS.peach}30`,
+              borderRadius: "12px",
+              boxShadow: `0 0 0 1px ${COLORS.peach}60, 0 8px 40px -12px ${COLORS.accent}80`,
+              background: COLORS.accent,
             }}
-          />
-
-          <div className="relative z-10 grid grid-rows-[auto_1fr_auto] h-full">
-            {/* Header strip */}
-            <div
-              className="flex items-center justify-between px-4 py-2"
-              style={{
-                borderBottom: `1px solid ${COLORS.peach}40`,
-              }}
-            >
-              <div className="flex items-center gap-2">
-                {/* Status dot */}
-                <div
-                  className="h-2 w-2 rounded-full"
-                  style={{
-                    background: COLORS.peach,
-                    boxShadow: `0 0 6px ${COLORS.peach}`,
-                  }}
-                />
-                <span
-                  className="text-[9px] font-display tracking-[0.35em]"
-                  style={{ color: `${COLORS.white}80` }}
-                >
-                  PERSONNEL
-                </span>
-              </div>
-              <span
-                className="text-[10px] font-display tracking-[0.25em] font-bold"
-                style={{ color: COLORS.peach }}
-              >
-                {serialNum}
-              </span>
-            </div>
-
-            {/* Body: photo + side strip */}
-            <div className="flex">
-              {/* Side strip */}
+          >
+            {/* ─── DARK UPPER SECTION ─── */}
+            <div className="relative">
+              {/* Header bar */}
               <div
-                className="flex flex-col items-center justify-between py-3 px-2"
-                style={{
-                  borderRight: `1px solid ${COLORS.peach}30`,
-                  minWidth: 32,
-                }}
+                className="flex items-center justify-between px-4 py-3"
+                style={{ borderBottom: `1px solid ${COLORS.peach}20` }}
               >
-                <DnaStrip />
+                <div className="flex items-center gap-2">
+                  <div
+                    className="h-2 w-2 rounded-full"
+                    style={{
+                      background: COLORS.peach,
+                      boxShadow: `0 0 8px ${COLORS.peach}80`,
+                    }}
+                  />
+                  <span
+                    className="text-[10px] font-display tracking-[0.3em] uppercase"
+                    style={{ color: `${COLORS.white}70` }}
+                  >
+                    Prakarsh '26
+                  </span>
+                </div>
+                {/* Octagon brand mark */}
                 <div
-                  className="font-display text-[8px] tracking-[0.3em]"
+                  className="h-8 w-8 flex items-center justify-center"
                   style={{
-                    writingMode: "vertical-rl",
-                    transform: "rotate(180deg)",
-                    color: `${COLORS.peach}70`,
+                    clipPath:
+                      "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
+                    border: `1.5px solid ${COLORS.peach}`,
+                    background: COLORS.accent,
                   }}
                 >
-                  PRAKARSH.26
+                  <span
+                    className="font-display text-[10px] font-black"
+                    style={{ color: COLORS.peach }}
+                  >
+                    P
+                  </span>
                 </div>
               </div>
 
-              {/* Photo window */}
-              <div className="flex-1 p-3">
-                <div
-                  className="relative w-full overflow-hidden"
-                  style={{
-                    aspectRatio: "4 / 5",
-                    clipPath:
-                      "polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px)",
-                    background: `${COLORS.accent}`,
-                    boxShadow: `inset 0 0 30px -10px ${COLORS.peach}20`,
-                  }}
-                >
-                  {/* Corner brackets */}
-                  <div className="absolute inset-2 z-20 pointer-events-none">
-                    <CornerBracket position="tl" />
-                    <CornerBracket position="tr" />
-                    <CornerBracket position="bl" />
-                    <CornerBracket position="br" />
-                  </div>
+              {/* Photo area */}
+              <div className="relative px-5 py-4">
+                <TopoPattern />
 
-                  {/* Hex grid background */}
-                  <div className="absolute inset-0 hex-grid opacity-10" />
-
-                  {/* Photo or placeholder initial */}
-                  {member.image ? (
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="absolute inset-0 w-full h-full object-cover z-10"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <div
-                        className="text-7xl font-display font-black"
-                        style={{ color: `${COLORS.peach}25` }}
-                      >
-                        {member.name.charAt(0)}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Scan line on hover */}
-                  <div className="absolute inset-0 z-30 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <motion.div
-                      className="absolute left-0 right-0 h-[2px]"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${COLORS.peach}, transparent)`,
-                      }}
-                      animate={{ top: ["0%", "100%"] }}
-                      transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                  </div>
-
-                  {/* Classification label */}
+                <div className="relative flex justify-center">
                   <div
-                    className="absolute bottom-3 left-3 z-20 px-2 py-1"
+                    className="relative w-full overflow-hidden"
                     style={{
-                      background: `${COLORS.accent}CC`,
-                      border: `1px solid ${COLORS.peach}40`,
+                      aspectRatio: "4 / 5",
+                      maxWidth: "220px",
+                      background: `${COLORS.accent}`,
+                      border: `1px solid ${COLORS.peach}30`,
+                      boxShadow: `0 0 30px -10px ${COLORS.peach}20`,
                     }}
                   >
-                    <span
-                      className="text-[8px] font-display tracking-[0.3em]"
-                      style={{ color: `${COLORS.white}90` }}
-                    >
-                      CLASSIFIED
-                    </span>
+                    {/* Photo or initial placeholder */}
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="hex-grid absolute inset-0 opacity-20" />
+                        <div
+                          className="relative text-7xl font-display font-black"
+                          style={{ color: `${COLORS.peach}20` }}
+                        >
+                          {member.name.charAt(0)}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Scan line on hover */}
+                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <motion.div
+                        className="absolute left-0 right-0 h-[2px]"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, ${COLORS.peach}, transparent)`,
+                        }}
+                        animate={{ top: ["0%", "100%"] }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
+                    </div>
+
+                    {/* Corner brackets */}
+                    <div className="absolute top-2 left-2 w-4 h-4 border-t border-l" style={{ borderColor: `${COLORS.peach}60` }} />
+                    <div className="absolute top-2 right-2 w-4 h-4 border-t border-r" style={{ borderColor: `${COLORS.peach}60` }} />
+                    <div className="absolute bottom-2 left-2 w-4 h-4 border-b border-l" style={{ borderColor: `${COLORS.peach}60` }} />
+                    <div className="absolute bottom-2 right-2 w-4 h-4 border-b border-r" style={{ borderColor: `${COLORS.peach}60` }} />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Footer info panel */}
+            {/* ─── LIGHT INFO PANEL ─── */}
             <div
-              className="px-4 py-3 space-y-2"
+              className="relative px-5 py-4 space-y-3"
               style={{
-                borderTop: `1px solid ${COLORS.peach}40`,
+                background: `${COLORS.white}F2`,
               }}
             >
-              {/* Name */}
-              <div className="flex items-center justify-between">
+              {/* Role label */}
+              <div
+                className="px-3 py-1.5 inline-block"
+                style={{
+                  background: COLORS.accent,
+                  clipPath: "polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)",
+                }}
+              >
+                <span
+                  className="text-[9px] font-display tracking-[0.3em] uppercase"
+                  style={{ color: COLORS.peach }}
+                >
+                  {member.role}
+                </span>
+              </div>
+
+              {/* Name and metadata row */}
+              <div className="flex items-end justify-between gap-3">
                 <div>
                   <div
-                    className="text-[9px] font-display tracking-[0.3em] mb-1"
-                    style={{ color: `${COLORS.white}60` }}
+                    className="text-[8px] font-display tracking-[0.3em] mb-1"
+                    style={{ color: `${COLORS.accent}60` }}
                   >
                     NAME
                   </div>
                   <h3
-                    className="font-display text-lg font-bold tracking-[0.12em] uppercase leading-tight"
-                    style={{ color: COLORS.white }}
+                    className="font-display text-lg font-bold tracking-[0.1em] uppercase leading-tight"
+                    style={{ color: COLORS.accent }}
                   >
                     {member.name}
                   </h3>
                 </div>
-
-                {/* Octagon mark */}
-                <div
-                  className="h-9 w-9 flex items-center justify-center flex-shrink-0"
-                  style={{
-                    clipPath:
-                      "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
-                    border: `1px solid ${COLORS.peach}`,
-                    background: COLORS.accent,
-                  }}
-                >
+                {/* Sector */}
+                <div className="text-right flex-shrink-0">
                   <div
-                    className="h-3 w-3 rounded-full"
-                    style={{
-                      boxShadow: `0 0 0 2px ${COLORS.peach}`,
-                    }}
-                  />
+                    className="text-[8px] font-display tracking-[0.3em]"
+                    style={{ color: `${COLORS.accent}60` }}
+                  >
+                    SECTOR
+                  </div>
+                  <div
+                    className="font-display text-lg font-bold"
+                    style={{ color: COLORS.accent }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
                 </div>
               </div>
 
@@ -290,52 +285,42 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
               <div
                 className="h-px w-full"
                 style={{
-                  background: `linear-gradient(90deg, ${COLORS.peach}60, ${COLORS.peach}20, transparent)`,
+                  background: `linear-gradient(90deg, ${COLORS.accent}40, ${COLORS.accent}15, transparent)`,
                 }}
               />
 
-              {/* Role row */}
+              {/* Bottom row: matricula + barcode */}
               <div className="flex items-center justify-between">
                 <div>
                   <div
-                    className="text-[9px] font-display tracking-[0.3em] mb-0.5"
-                    style={{ color: `${COLORS.white}60` }}
+                    className="text-[7px] font-display tracking-[0.3em] mb-0.5"
+                    style={{ color: `${COLORS.accent}50` }}
                   >
-                    DESIGNATION
+                    MATRICULA
                   </div>
-                  <p
-                    className="text-sm font-body tracking-wide"
-                    style={{ color: COLORS.peach }}
-                  >
-                    {member.role}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-[2px] w-6"
-                    style={{ background: `${COLORS.peach}50` }}
-                  />
                   <span
-                    className="text-[8px] font-display tracking-[0.3em]"
-                    style={{ color: `${COLORS.peach}70` }}
+                    className="font-display text-xs font-bold tracking-[0.15em]"
+                    style={{ color: COLORS.accent }}
                   >
-                    ACTIVE
+                    {matricula}
                   </span>
                 </div>
+
+                <Barcode value={serialNum} />
               </div>
             </div>
-          </div>
 
-          {/* Hover glow */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
-            style={{
-              boxShadow: `inset 0 0 40px -15px ${COLORS.peach}30, 0 0 50px -20px ${COLORS.peach}25`,
-            }}
-          />
+            {/* Hover glow overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                boxShadow: `inset 0 0 50px -20px ${COLORS.peach}25, 0 0 60px -25px ${COLORS.peach}30`,
+                borderRadius: "12px",
+              }}
+            />
+          </div>
         </div>
-      </motion.div>
+      </InteractiveTilt>
     </motion.div>
   );
 }
