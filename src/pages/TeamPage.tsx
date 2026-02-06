@@ -53,10 +53,10 @@ const teamMembers = [
                </h1>
              </HUDFrame>
              
-             <p className="text-muted-foreground max-w-2xl mx-auto font-body">
-               Meet the visionaries behind Prakarsh '26. Drag the cards to interact 
-               and scroll to experience the parallax effect.
-             </p>
+              <p className="text-muted-foreground max-w-2xl mx-auto font-body">
+                Meet the visionaries behind Prakarsh '26. Hover to interact
+                and scroll to experience the parallax effect.
+              </p>
              
              {/* Decorative line */}
              <div className="flex items-center justify-center gap-4 mt-6">

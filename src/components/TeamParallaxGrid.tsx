@@ -39,7 +39,7 @@ export const TeamParallaxGrid = ({ members, className }: TeamParallaxGridProps) 
         className
       )}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8 px-4 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-8 px-4 max-w-6xl mx-auto">
         {/* First column */}
         <motion.div style={{ y: translateFirst }} className="flex flex-col gap-8">
           {firstPart.map((member, idx) => (
