@@ -1,25 +1,28 @@
- import { motion } from "framer-motion";
- import Navbar from "@/components/Navbar";
- import Footer from "@/components/Footer";
- import GeometricPattern from "@/components/GeometricPattern";
- import { TeamParallaxGrid } from "@/components/TeamParallaxGrid";
- import HUDFrame from "@/components/HUDFrame";
- 
- // Mock team data - replace with actual data
- const teamMembers = [
-   { id: "001", name: "Alex Chen", role: "Lead Developer" },
-   { id: "002", name: "Maya Patel", role: "UI/UX Designer" },
-   { id: "003", name: "Jordan Lee", role: "Backend Engineer" },
-   { id: "004", name: "Sam Wilson", role: "Project Manager" },
-   { id: "005", name: "Riley Kim", role: "DevOps Specialist" },
-   { id: "006", name: "Casey Morgan", role: "Frontend Developer" },
-   { id: "007", name: "Taylor Brooks", role: "Data Analyst" },
-   { id: "008", name: "Jamie Reed", role: "Security Expert" },
-   { id: "009", name: "Drew Parker", role: "QA Engineer" },
-   { id: "010", name: "Morgan Ellis", role: "Technical Writer" },
-   { id: "011", name: "Quinn Foster", role: "Cloud Architect" },
-   { id: "012", name: "Avery Hayes", role: "ML Engineer" },
- ].map((m) => ({ ...m, image: "" }));
+import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import GeometricPattern from "@/components/GeometricPattern";
+import { TeamParallaxGrid } from "@/components/TeamParallaxGrid";
+import HUDFrame from "@/components/HUDFrame";
+
+// Mock team data - replace with actual data
+const teamMembers = [
+  { id: "001", name: "Alex Chen", role: "Lead Developer" },
+  { id: "002", name: "Maya Patel", role: "UI/UX Designer" },
+  { id: "003", name: "Jordan Lee", role: "Backend Engineer" },
+  { id: "004", name: "Sam Wilson", role: "Project Manager" },
+  { id: "005", name: "Riley Kim", role: "DevOps Specialist" },
+  { id: "006", name: "Casey Morgan", role: "Frontend Developer" },
+  { id: "007", name: "Taylor Brooks", role: "Data Analyst" },
+  { id: "008", name: "Jamie Reed", role: "Security Expert" },
+  { id: "009", name: "Drew Parker", role: "QA Engineer" },
+  { id: "010", name: "Morgan Ellis", role: "Technical Writer" },
+  { id: "011", name: "Quinn Foster", role: "Cloud Architect" },
+  { id: "012", name: "Avery Hayes", role: "ML Engineer" },
+  { id: "013", name: "Sage Bennett", role: "Systems Engineer" },
+  { id: "014", name: "River Nakamura", role: "Product Designer" },
+  { id: "015", name: "Blake Torres", role: "Full Stack Dev" },
+].map((m) => ({ ...m, image: "" }));
  
  const TeamPage = () => {
    return (
