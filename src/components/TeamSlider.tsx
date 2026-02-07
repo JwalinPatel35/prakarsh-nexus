@@ -277,7 +277,7 @@ export default function TeamSlider({ members }: TeamSliderProps) {
       </AnimatePresence>
 
       {/* Slider area */}
-      <div className="relative w-full flex items-center justify-center z-10">
+      <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center z-10">
         {/* Prev button */}
         <button
           onClick={() => change(-1)}
@@ -290,7 +290,7 @@ export default function TeamSlider({ members }: TeamSliderProps) {
 
         {/* Cards container */}
         <div
-          className="relative w-full"
+          className="relative w-full mx-auto"
           style={{
             height: "min(65vh, 500px)",
           }}
