@@ -26,8 +26,8 @@ const TeamSliderPage = () => {
 
       <Navbar />
 
-      <main className="relative z-10 pt-24 pb-16 flex flex-col items-center min-h-[calc(100vh-200px)]">
-        <div className="container mx-auto px-4">
+      <main className="relative z-10 pt-24 pb-16">
+        <div className="container mx-auto px-4 flex flex-col items-center">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
