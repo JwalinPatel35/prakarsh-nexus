@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TeamRing from "@/components/TeamRing";
+import PrakarshBackground from "@/components/PrakarshBackground";
 
 const teamMembers = [
   { id: "001", name: "Alex Chen", role: "Lead Developer" },
@@ -18,39 +19,9 @@ const teamMembers = [
 
 const TeamRingPage = () => {
   return (
-    <div
-      className="min-h-screen relative overflow-hidden"
-      style={{
-        background: "linear-gradient(180deg, #1A0E2E 0%, #0F0820 40%, #1A0E2E 100%)",
-      }}
-    >
-      {/* Ambient glow effects */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 40% at 30% 20%, rgba(107,63,160,0.15) 0%, transparent 60%), " +
-            "radial-gradient(ellipse 50% 35% at 70% 80%, rgba(232,79,170,0.1) 0%, transparent 60%)",
-        }}
-      />
-
-      {/* Subtle star dots */}
-      <div className="fixed inset-0 pointer-events-none opacity-40">
-        {Array.from({ length: 60 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              background: "#fff",
-              opacity: 0.3 + Math.random() * 0.5,
-            }}
-          />
-        ))}
-      </div>
+    <div className="min-h-screen relative overflow-hidden" style={{ background: "#0C0618" }}>
+      {/* Full animated background */}
+      <PrakarshBackground />
 
       <Navbar />
 
