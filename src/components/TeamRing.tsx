@@ -12,12 +12,21 @@ interface TeamRingProps {
   members: TeamMember[];
 }
 
-const COLORS = {
-  white: "#FFFFFF",
+/* ── Prakarsh poster palette ── */
+const C = {
+  cardBg: "#1A0E2E",
+  cardBgLight: "#2D1B4E",
+  purple: "#6B3FA0",
+  pink: "#E84FAA",
+  blue: "#4A90D9",
+  cyan: "#6CB4EE",
+  gold: "#D4A574",
   peach: "#F1B5A2",
-  accent: "#3C2A56",
+  white: "#FFFFFF",
+  statsBg: "#140B24",
 } as const;
 
+/* ── Individual ring card — NFT style ── */
 function RingCard({
   member,
   index,
@@ -27,144 +36,265 @@ function RingCard({
   index: number;
   isActive: boolean;
 }) {
+  const [hovered, setHovered] = useState(false);
   const serialNum = `PRK-${String(index + 1).padStart(3, "0")}`;
+  const sectorNum = String(index + 1).padStart(2, "0");
 
   return (
     <div
       className="w-full h-full relative select-none"
       style={{ backfaceVisibility: "hidden" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* Card shell */}
+      {/* Outer glow on hover */}
       <div
-        className="w-full h-full overflow-hidden relative"
+        className="absolute -inset-[2px] rounded-2xl opacity-0 transition-opacity duration-500 pointer-events-none"
         style={{
-          borderRadius: "10px",
-          border: `1px solid ${isActive ? COLORS.peach : `${COLORS.peach}40`}`,
-          background: COLORS.accent,
-          transition: "border-color 0.4s ease, box-shadow 0.4s ease",
-          boxShadow: isActive
-            ? `0 0 40px -10px ${COLORS.peach}50, 0 0 80px -20px ${COLORS.peach}30`
+          opacity: hovered || isActive ? 1 : 0,
+          background: `linear-gradient(135deg, ${C.pink}, ${C.blue}, ${C.purple})`,
+          filter: "blur(8px)",
+        }}
+      />
+
+      {/* Card body */}
+      <div
+        className="relative w-full h-full rounded-2xl overflow-hidden flex flex-col"
+        style={{
+          background: `linear-gradient(180deg, ${C.cardBgLight} 0%, ${C.cardBg} 100%)`,
+          border: `1.5px solid ${hovered || isActive ? `${C.pink}90` : `${C.purple}50`}`,
+          transition: "border-color 0.4s ease, transform 0.35s ease",
+          transform: hovered ? "scale(1.03)" : "scale(1)",
+          boxShadow: hovered
+            ? `0 0 40px -10px ${C.pink}60, 0 8px 30px -5px rgba(0,0,0,0.5)`
             : `0 4px 20px -8px rgba(0,0,0,0.6)`,
         }}
       >
-        {/* Photo area */}
-        <div className="relative w-full" style={{ height: "65%" }}>
-          {member.image ? (
-            <img
-              src={member.image}
-              alt={member.name}
-              className="absolute inset-0 w-full h-full object-cover"
-              draggable={false}
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="hex-grid absolute inset-0 opacity-20" />
-              <div
-                className="relative text-8xl font-display font-black"
-                style={{ color: `${COLORS.peach}18` }}
-              >
-                {member.name.charAt(0)}
-              </div>
-            </div>
-          )}
-
-          {/* Scan line on active */}
-          {isActive && (
-            <motion.div
-              className="absolute left-0 right-0 h-[2px] pointer-events-none"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${COLORS.peach}, transparent)`,
-              }}
-              animate={{ top: ["0%", "100%"] }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          )}
-
-          {/* Corner brackets */}
+        {/* ── Top badge (role) ── */}
+        <div className="flex justify-center pt-3 pb-2 relative z-10">
           <div
-            className="absolute top-2 left-2 w-3 h-3 border-t border-l"
-            style={{ borderColor: `${COLORS.peach}60` }}
-          />
-          <div
-            className="absolute top-2 right-2 w-3 h-3 border-t border-r"
-            style={{ borderColor: `${COLORS.peach}60` }}
-          />
-          <div
-            className="absolute bottom-2 left-2 w-3 h-3 border-b border-l"
-            style={{ borderColor: `${COLORS.peach}60` }}
-          />
-          <div
-            className="absolute bottom-2 right-2 w-3 h-3 border-b border-r"
-            style={{ borderColor: `${COLORS.peach}60` }}
-          />
-
-          {/* Vignette */}
-          <div
-            className="absolute inset-0 pointer-events-none"
+            className="px-4 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase"
             style={{
-              background: `linear-gradient(to top, ${COLORS.accent} 0%, transparent 40%)`,
-            }}
-          />
-        </div>
-
-        {/* Info area */}
-        <div
-          className="relative px-4 py-3 flex flex-col justify-between"
-          style={{
-            height: "35%",
-            background: `linear-gradient(180deg, ${COLORS.accent} 0%, ${COLORS.accent}F0 100%)`,
-          }}
-        >
-          {/* Role chip */}
-          <div
-            className="inline-block self-start px-2.5 py-1"
-            style={{
-              background: `${COLORS.peach}15`,
-              border: `1px solid ${COLORS.peach}30`,
-              clipPath:
-                "polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%)",
+              background: `linear-gradient(135deg, ${C.blue}DD, ${C.purple}DD)`,
+              color: C.white,
+              boxShadow: `0 2px 10px ${C.blue}40`,
+              transition: "box-shadow 0.3s ease",
+              ...(hovered ? { boxShadow: `0 2px 18px ${C.blue}70` } : {}),
             }}
           >
-            <span
-              className="text-[8px] font-display tracking-[0.3em] uppercase"
-              style={{ color: COLORS.peach }}
+            {member.role}
+          </div>
+        </div>
+
+        {/* ── Image area ── */}
+        <div className="relative mx-3 flex-1 min-h-0" style={{ maxHeight: "55%" }}>
+          {/* Gradient border wrapper */}
+          <div
+            className="absolute inset-0 rounded-xl"
+            style={{
+              background: `linear-gradient(160deg, ${C.pink}80, ${C.blue}80, ${C.purple}80)`,
+              padding: "2px",
+            }}
+          >
+            <div
+              className="w-full h-full rounded-xl overflow-hidden relative"
+              style={{ background: C.cardBg }}
             >
-              {member.role}
-            </span>
+              {member.image ? (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  draggable={false}
+                  style={{
+                    transition: "transform 0.5s ease",
+                    transform: hovered ? "scale(1.08)" : "scale(1)",
+                  }}
+                />
+              ) : (
+                /* Placeholder with decorative pattern */
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                  {/* Background gradient */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `radial-gradient(circle at 50% 40%, ${C.purple}60 0%, ${C.cardBg} 70%)`,
+                    }}
+                  />
+                  {/* Floating decorative circles */}
+                  <div
+                    className="absolute w-24 h-24 rounded-full opacity-20"
+                    style={{
+                      background: `linear-gradient(135deg, ${C.pink}, ${C.blue})`,
+                      top: "15%",
+                      left: "10%",
+                      transition: "transform 0.5s ease",
+                      transform: hovered ? "translate(5px, -5px) scale(1.1)" : "translate(0, 0)",
+                    }}
+                  />
+                  <div
+                    className="absolute w-16 h-16 rounded-full opacity-15"
+                    style={{
+                      background: `linear-gradient(135deg, ${C.blue}, ${C.cyan})`,
+                      bottom: "20%",
+                      right: "15%",
+                      transition: "transform 0.5s ease",
+                      transform: hovered ? "translate(-5px, 3px) scale(1.15)" : "translate(0, 0)",
+                    }}
+                  />
+                  <div
+                    className="absolute w-10 h-10 rounded-full opacity-10"
+                    style={{
+                      background: C.gold,
+                      top: "40%",
+                      right: "25%",
+                      transition: "transform 0.5s ease",
+                      transform: hovered ? "translate(-3px, -6px)" : "translate(0, 0)",
+                    }}
+                  />
+                  {/* Big letter */}
+                  <div
+                    className="relative text-7xl font-bold select-none"
+                    style={{
+                      color: `${C.purple}40`,
+                      transition: "color 0.4s ease",
+                      ...(hovered ? { color: `${C.pink}50` } : {}),
+                    }}
+                  >
+                    {member.name.charAt(0)}
+                  </div>
+                </div>
+              )}
+
+              {/* Hover scan line */}
+              {(hovered || isActive) && (
+                <motion.div
+                  className="absolute left-0 right-0 h-[1px] pointer-events-none"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${C.pink}80, ${C.cyan}80, transparent)`,
+                  }}
+                  initial={{ top: "0%" }}
+                  animate={{ top: "100%" }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              )}
+
+              {/* Small icon badge (bottom right) */}
+              <div
+                className="absolute bottom-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"
+                style={{
+                  background: `linear-gradient(135deg, ${C.blue}, ${C.purple})`,
+                  border: `1.5px solid ${C.cyan}60`,
+                  fontSize: "10px",
+                  color: C.white,
+                  fontWeight: 700,
+                  opacity: hovered ? 1 : 0.7,
+                  transition: "opacity 0.3s ease",
+                }}
+              >
+                P
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Info section ── */}
+        <div className="px-3.5 pt-2.5 pb-1.5 flex flex-col gap-0.5 relative z-10">
+          {/* Member ID */}
+          <div
+            className="text-[9px] font-semibold tracking-[0.15em] uppercase"
+            style={{ color: C.gold }}
+          >
+            {serialNum}
           </div>
 
           {/* Name */}
           <h3
-            className="font-display text-sm font-bold tracking-[0.12em] uppercase leading-tight mt-1"
-            style={{ color: COLORS.white }}
+            className="text-sm font-extrabold tracking-[0.06em] uppercase leading-tight"
+            style={{ color: C.white }}
           >
             {member.name}
           </h3>
 
-          {/* Bottom row */}
-          <div className="flex items-center justify-between mt-auto">
-            <span
-              className="text-[8px] font-display tracking-[0.3em]"
-              style={{ color: `${COLORS.peach}60` }}
+          {/* Subtitle row */}
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <div
+              className="w-4 h-4 rounded flex items-center justify-center"
+              style={{
+                background: `linear-gradient(135deg, ${C.purple}, ${C.pink}80)`,
+              }}
             >
-              {serialNum}
+              <span className="text-[8px] font-bold" style={{ color: C.white }}>
+                P
+              </span>
+            </div>
+            <span
+              className="text-[9px] font-semibold tracking-[0.12em] uppercase"
+              style={{ color: `${C.white}80` }}
+            >
+              PRAKARSH '26
             </span>
-            <div className="flex gap-[1px]">
-              {Array.from({ length: 12 }).map((_, i) => (
+          </div>
+        </div>
+
+        {/* ── Stats footer ── */}
+        <div
+          className="mx-3 mb-3 mt-1.5 rounded-lg px-3 py-2 flex items-center justify-between"
+          style={{
+            background: C.statsBg,
+            border: `1px solid ${C.purple}40`,
+          }}
+        >
+          <div className="flex flex-col">
+            <span
+              className="text-[7px] tracking-[0.2em] uppercase"
+              style={{ color: `${C.white}50` }}
+            >
+              Sector
+            </span>
+            <span
+              className="text-xs font-bold"
+              style={{ color: C.white }}
+            >
+              {sectorNum}
+            </span>
+          </div>
+
+          <div
+            className="w-[1px] h-6"
+            style={{ background: `${C.purple}50` }}
+          />
+
+          <div className="flex flex-col items-end">
+            <span
+              className="text-[7px] tracking-[0.2em] uppercase"
+              style={{ color: `${C.white}50` }}
+            >
+              Clearance
+            </span>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <div className="flex items-center gap-1">
                 <div
-                  key={i}
-                  className="h-3"
-                  style={{
-                    width: i % 3 === 0 ? "2px" : "1px",
-                    background:
-                      i % 5 === 0 ? `${COLORS.peach}50` : `${COLORS.peach}25`,
-                  }}
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: C.pink }}
                 />
-              ))}
+                <span className="text-[9px] font-bold" style={{ color: C.white }}>
+                  A
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: C.blue }}
+                />
+                <span className="text-[9px] font-bold" style={{ color: C.white }}>
+                  B
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -173,6 +303,7 @@ function RingCard({
   );
 }
 
+/* ── Main 3D ring carousel ── */
 export default function TeamRing({ members }: TeamRingProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -184,9 +315,8 @@ export default function TeamRing({ members }: TeamRingProps) {
 
   const numItems = members.length;
   const anglePerItem = 360 / numItems;
-  const radius = Math.max(400, numItems * 32); // dynamic radius
+  const radius = Math.max(400, numItems * 32);
 
-  // Calculate which card is facing front
   const getActiveIndex = useCallback(
     (rot: number) => {
       const normalized = ((rot % 360) + 360) % 360;
@@ -200,8 +330,7 @@ export default function TeamRing({ members }: TeamRingProps) {
     (e: React.PointerEvent) => {
       isDragging.current = true;
       startX.current = e.clientX;
-      if (containerRef.current)
-        containerRef.current.style.cursor = "grabbing";
+      if (containerRef.current) containerRef.current.style.cursor = "grabbing";
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     },
     []
@@ -222,10 +351,8 @@ export default function TeamRing({ members }: TeamRingProps) {
 
   const handlePointerUp = useCallback(() => {
     isDragging.current = false;
-    if (containerRef.current)
-      containerRef.current.style.cursor = "grab";
+    if (containerRef.current) containerRef.current.style.cursor = "grab";
 
-    // Snap to nearest card
     const snapAngle =
       Math.round(currentRotation.current / anglePerItem) * anglePerItem;
     const startRot = currentRotation.current;
@@ -236,7 +363,6 @@ export default function TeamRing({ members }: TeamRingProps) {
     const animate = (time: number) => {
       const elapsed = time - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const newRot = startRot + diff * eased;
       setRotation(newRot);
@@ -249,7 +375,6 @@ export default function TeamRing({ members }: TeamRingProps) {
     animationRef.current = requestAnimationFrame(animate);
   }, [anglePerItem, getActiveIndex]);
 
-  // Touch support
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -286,12 +411,11 @@ export default function TeamRing({ members }: TeamRingProps) {
     };
   }, [getActiveIndex, handlePointerUp]);
 
-  // The active member info
   const activeMember = members[activeIndex] || members[0];
 
   return (
     <div className="relative w-full flex flex-col items-center">
-      {/* Active member info display */}
+      {/* Active member info */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeMember.id}
@@ -302,41 +426,42 @@ export default function TeamRing({ members }: TeamRingProps) {
           className="text-center mb-8 min-h-[80px]"
         >
           <div
-            className="text-[10px] font-display tracking-[0.4em] mb-2"
-            style={{ color: `${COLORS.peach}80` }}
+            className="text-[10px] font-semibold tracking-[0.4em] mb-2"
+            style={{ color: `${C.gold}90` }}
           >
-            PERSONNEL // SECTOR {String(activeIndex + 1).padStart(2, "0")}
+            SECTOR {String(activeIndex + 1).padStart(2, "0")} // PERSONNEL
           </div>
           <h2
-            className="font-display text-3xl md:text-4xl font-bold tracking-[0.15em] uppercase"
-            style={{ color: COLORS.white }}
+            className="text-3xl md:text-4xl font-extrabold tracking-[0.08em] uppercase"
+            style={{
+              background: `linear-gradient(135deg, ${C.white}, ${C.peach})`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
           >
             {activeMember.name}
           </h2>
-          <div
-            className="mt-2 inline-block px-4 py-1.5"
-            style={{
-              border: `1px solid ${COLORS.peach}40`,
-              clipPath:
-                "polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)",
-            }}
-          >
-            <span
-              className="text-xs font-display tracking-[0.3em] uppercase"
-              style={{ color: COLORS.peach }}
+          <div className="mt-2 flex justify-center">
+            <div
+              className="px-5 py-1.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase"
+              style={{
+                background: `linear-gradient(135deg, ${C.purple}60, ${C.pink}40)`,
+                border: `1px solid ${C.pink}50`,
+                color: C.peach,
+              }}
             >
               {activeMember.role}
-            </span>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* 3D Ring container */}
+      {/* 3D Ring */}
       <div
         ref={containerRef}
         className="relative w-full select-none"
         style={{
-          height: "420px",
+          height: "440px",
           perspective: "1200px",
           cursor: "grab",
         }}
@@ -345,12 +470,11 @@ export default function TeamRing({ members }: TeamRingProps) {
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
       >
-        {/* Ring element */}
         <div
           className="absolute left-1/2 top-1/2"
           style={{
             width: "240px",
-            height: "340px",
+            height: "360px",
             transform: `translate(-50%, -50%) rotateY(${-rotation}deg)`,
             transformStyle: "preserve-3d",
             transition: isDragging.current ? "none" : undefined,
@@ -388,19 +512,19 @@ export default function TeamRing({ members }: TeamRingProps) {
         <div
           className="h-px w-12"
           style={{
-            background: `linear-gradient(90deg, transparent, ${COLORS.peach}40)`,
+            background: `linear-gradient(90deg, transparent, ${C.pink}50)`,
           }}
         />
         <span
-          className="text-[10px] font-display tracking-[0.3em] uppercase"
-          style={{ color: `${COLORS.peach}50` }}
+          className="text-[10px] font-semibold tracking-[0.3em] uppercase"
+          style={{ color: `${C.peach}60` }}
         >
           Drag to rotate
         </span>
         <div
           className="h-px w-12"
           style={{
-            background: `linear-gradient(90deg, ${COLORS.peach}40, transparent)`,
+            background: `linear-gradient(90deg, ${C.pink}50, transparent)`,
           }}
         />
       </motion.div>

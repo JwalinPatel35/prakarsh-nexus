@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import GeometricPattern from "@/components/GeometricPattern";
-import HUDFrame from "@/components/HUDFrame";
 import TeamRing from "@/components/TeamRing";
 
 const teamMembers = [
@@ -20,9 +18,39 @@ const teamMembers = [
 
 const TeamRingPage = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      <GeometricPattern />
-      <div className="hex-grid fixed inset-0 pointer-events-none opacity-30" />
+    <div
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, #1A0E2E 0%, #0F0820 40%, #1A0E2E 100%)",
+      }}
+    >
+      {/* Ambient glow effects */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 30% 20%, rgba(107,63,160,0.15) 0%, transparent 60%), " +
+            "radial-gradient(ellipse 50% 35% at 70% 80%, rgba(232,79,170,0.1) 0%, transparent 60%)",
+        }}
+      />
+
+      {/* Subtle star dots */}
+      <div className="fixed inset-0 pointer-events-none opacity-40">
+        {Array.from({ length: 60 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              background: "#fff",
+              opacity: 0.3 + Math.random() * 0.5,
+            }}
+          />
+        ))}
+      </div>
 
       <Navbar />
 
@@ -35,23 +63,46 @@ const TeamRingPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-8"
           >
-            <HUDFrame className="inline-block px-8 py-6 mb-4">
-              <div className="text-xs font-display text-primary tracking-[0.3em] mb-2">
-                PRAKARSH '26 // PERSONNEL DATABASE
-              </div>
-              <h1 className="text-4xl md:text-5xl font-display font-bold text-gradient-primary">
-                THE TEAM
-              </h1>
-            </HUDFrame>
+            <div
+              className="text-xs font-semibold tracking-[0.4em] mb-3"
+              style={{ color: "#D4A574" }}
+            >
+              PRAKARSH '26 — PERSONNEL DATABASE
+            </div>
+            <h1
+              className="text-4xl md:text-6xl font-extrabold tracking-[0.05em] uppercase"
+              style={{
+                background: "linear-gradient(135deg, #FFFFFF 0%, #F1B5A2 50%, #E84FAA 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              THE TEAM
+            </h1>
 
-            <p className="text-muted-foreground max-w-md mx-auto font-body text-sm">
-              Drag to rotate the ring. Meet the visionaries behind Prakarsh '26.
+            <p
+              className="max-w-md mx-auto text-sm mt-3"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
+              Drag to rotate the ring. Meet the visionaries behind Prakarsh&apos;26.
             </p>
 
             <div className="flex items-center justify-center gap-4 mt-4">
-              <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary" />
-              <div className="pulse-dot" />
-              <div className="h-px w-20 bg-gradient-to-l from-transparent to-accent" />
+              <div
+                className="h-px w-20"
+                style={{ background: "linear-gradient(90deg, transparent, #E84FAA60)" }}
+              />
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{
+                  background: "linear-gradient(135deg, #E84FAA, #6CB4EE)",
+                  boxShadow: "0 0 8px #E84FAA80",
+                }}
+              />
+              <div
+                className="h-px w-20"
+                style={{ background: "linear-gradient(90deg, #6CB4EE60, transparent)" }}
+              />
             </div>
           </motion.div>
 
